@@ -6,9 +6,20 @@
 const express = require('express');
 const app = express();
 const http = require('http');
+const bcrypt = require('bcryptjs');
+
+app.use(express.json())
+
+const path = require('path');
+
+const User = require('./src/models/model')
+
+require('./src/db/mongoose')
+app.use(express.static('./public'));
 const {
     Server
 } = require('socket.io');
+const { json } = require('express');
 app.use(express.static('public'));
 
 const server = http.createServer(app);
@@ -77,9 +88,6 @@ io.on('connection', socket => {
 
 
 
-
-
-
     socket.join(socket.user);
     console.log("SOCKET USER: " + socket.user)
 
@@ -116,6 +124,70 @@ io.on('connection', socket => {
     })
 
 });
+
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/newUser.html'));
+    // res.send('');
+})
+
+app.get('/main', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/main.html'));
+    // res.send('');
+})
+
+app.post('/authenticate', (req, res) => {
+
+    User.findOne({email: req.body.email})
+        .then((data) => {
+            if (!data) {
+                console.log('hello')
+                res.redirect('/login')
+            } else {
+                hash = data.password
+                myPlainTextPassword = req.body.password
+
+                bcrypt.compare(myPlainTextPassword, hash).then((result) => {
+                    if (result) {
+                        // req.session.loggedIn = true
+                        console.log("hhbiello")
+                        // res.redirect('/main')
+                        res.sendStatus(200)
+                    } else {
+                        res.sendStatus(201)
+                        res.redirect('/')
+                    }
+
+                })
+
+            }
+        })
+
+})
+
+app.post('/adduser', (req, res) => {
+    console.log(req.body.password);
+    bcrypt.hash(req.body.password, 8).then((element) => {
+        User.create({ email: req.body.email, password: element })
+    })
+    res.status(200).json({
+        success: true,
+        data: {
+            msg: 'Created new user!'
+        }
+    })
+})
+// app.post('/adduser', (req, res) => {
+//     console.log(req.body);
+//     bcrypt.hash('test', 8).then((element) => {
+//         User.create({ email: 'webrtc', password: element })
+//     })
+//     res.status(200).json({
+//         success: true,
+//         data: {
+//             msg: 'Created new user!'
+//         }
+//     })
+// })
 
 
 
