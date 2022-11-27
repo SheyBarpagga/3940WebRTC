@@ -123,6 +123,12 @@ io.on('connection', socket => {
         })
     })
 
+
+    socket.on('send message', (msg) => {
+        console.log('message: ' + msg);
+        io.emit('send message', msg);
+    });
+
 });
 
 app.get('/signup', (req, res) => {

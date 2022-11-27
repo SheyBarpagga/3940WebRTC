@@ -12,6 +12,10 @@ function displayUsername() {
 displayUsername();
 
 
-document.getElementById("makeCallBtn").addEventListener("click", () => {
-    window.location.replace("/make-call.html");
+// document.getElementById("makeCallBtn").addEventListener("click", () => {
+//     window.location.replace("/make-call.html");
+// })
+
+document.getElementById("messagingBtn").addEventListener("click", () => {
+    window.location.replace("/message.html");
 })
