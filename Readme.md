@@ -1,6 +1,10 @@
 # Web RTC Video Conferencing
 
-### Configuration instructions:
+## Hosted App
+[Hosted App Link](https://webrtc-grp2.herokuapp.com/)
+
+
+## Configuration instructions
 
 You will need to install:
 - [Node package manager](https://nodejs.org/en/download/) (npm)
@@ -17,6 +21,7 @@ In your folder, you will need to install the following node packages:
 ```
 npm install express 
 npm install socket.io
+npm install mongoose 
 ```
 
 To run the project (in the command line):
@@ -24,6 +29,13 @@ To run the project (in the command line):
 node server.js
 ```
 
-## References:
+## Credits and References
+
+### Credits:
+- Shey Barpagga
+- Code Workun
+- Monica Bacatan
+
+### References:
 * Video reference: https://www.youtube.com/watch?v=Uk5DbEnFNP0
 * Code reference: https://github.com/coding-with-chaim/toggle-cam-final

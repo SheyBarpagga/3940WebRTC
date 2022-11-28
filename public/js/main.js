@@ -7,7 +7,7 @@ function displayUsername() {
     thisUser = localStorage.getItem('USER');
     console.log("USER: " + thisUser)
 
-    document.getElementById("thisUsername").innerHTML = thisUser;
+    document.getElementById("thisUsername").innerHTML = "Welcome, " + thisUser;
 }
 displayUsername();
 
